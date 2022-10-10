@@ -12,9 +12,9 @@ Vector::Vector(float x, float y, float z) : x(x), y(y), z(z) {
 }
 
 Vector::Vector(Vector p1, Vector p2) {
-    x = abs(p2.x - p1.x);
-    y = abs(p2.y - p1.y);
-    z = abs(p2.z - p1.z);
+    x = p1.x - p2.x;
+    y = p1.y - p2.y;
+    z = p1.z - p2.z;
 }
 
 Vector::Vector(const Vector &v) {
@@ -48,7 +48,7 @@ void Vector::operator*=(const float &s) {
 void Vector::operator/=(const float &s) {
     if(s == 0)
     {
-        printf("Can't divide by 0");
+        printf("Can't divide by 0 [Div]");
         return;
     }
 
@@ -140,8 +140,10 @@ Vector Vector::cross(Vector& v1, Vector& v2)
 }
 
 std::string Vector::toString() {
-    std::string output = "[" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + "]";
-    return output;
+    if((int)x != x || (int)y !=y || (int)z != z)
+        return "[" + std::to_string(x) + ", " + std::to_string(y) + ", " + std::to_string(z) + "]";
+
+    return "[" + std::to_string((int)x) + ", " + std::to_string((int)y) + ", " + std::to_string((int)z) + "]";
 }
 
 float Vector::calcAngle(Vector& v1, Vector& v2) {
